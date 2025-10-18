@@ -1,19 +1,27 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { ValidationPipe } from '@nestjs/common';
+import { ConsoleLogger, ValidationPipe } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    logger: new ConsoleLogger({
+      logLevels: ['log', 'debug', 'warn', 'error', 'fatal', 'verbose'],
+    }),
+  });
+
+  const configService = app.get(ConfigService);
+
+  app.setGlobalPrefix('api/v1/');
 
   app.enableCors();
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
+      forbidNonWhitelisted: true,
     }),
   );
 
-  app.setGlobalPrefix('api/v1/');
-
-  await app.listen(process.env.PORT ?? 3000);
+  await app.listen(configService.get('APP_PORT') ?? 3000);
 }
 bootstrap();

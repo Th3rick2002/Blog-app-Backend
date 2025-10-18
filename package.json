@@ -1,8 +1,8 @@
 {
   "name": "blog-app",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "Blog project",
+  "author": "Erick Isaías Martínez Pérez",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
+    "@nestjs/config": "^4.0.2",
     "@nestjs/core": "^11.0.1",
     "@nestjs/mapped-types": "*",
     "@nestjs/platform-express": "^11.0.1",

@@ -3,20 +3,30 @@ import { CategoryModule } from './category/category.module';
 import { PostModule } from './post/post.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Category } from './category/entities/category.entity';
+import { Post } from './post/entities/post.entity';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: '172.20.0.2',
-      port: 5432,
-      username: 'user1234',
-      password: 'pass1234',
-      database: 'blog_db',
-      entities: [Category],
-      synchronize: true,
-      retryDelay: 3000,
-      autoLoadEntities: true,
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: '.env.dev',
+    }),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (ConfigService: ConfigService) => ({
+        type: 'postgres',
+        host: ConfigService.get('DATABASE_HOST'),
+        port: ConfigService.get('DATABASE_PORT'),
+        username: ConfigService.get('DATABASE_USER'),
+        password: ConfigService.get('DATABASE_PASSWORD'),
+        database: ConfigService.get('DATABASE_NAME'),
+        entities: [Category, Post],
+        synchronize: true,
+        retryDelay: 3000,
+        autoLoadEntities: true,
+      }),
     }),
     CategoryModule,
     PostModule,
