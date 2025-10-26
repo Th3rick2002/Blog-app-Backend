@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -13,6 +13,9 @@ export class PostService {
   ) {}
 
   create(createPostDto: CreatePostDto) {
+    if (!createPostDto.category)
+      throw new BadRequestException('Category is required');
+
     try {
       return this.postRepository.save(createPostDto);
     } catch (error) {
@@ -21,18 +24,18 @@ export class PostService {
   }
 
   findAll() {
-    return `This action returns all post`;
+    return this.postRepository.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} post`;
+    return this.postRepository.findOneBy({ id_post: id });
   }
 
   update(id: number, updatePostDto: UpdatePostDto) {
-    return `This action updates a #${id} post`;
+    return this.postRepository.update(id, updatePostDto);
   }
 
   remove(id: number) {
-    return `This action removes a #${id} post`;
+    return this.postRepository.delete(id);
   }
 }

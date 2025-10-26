@@ -20,11 +20,11 @@ export class Post {
   @Column({ type: 'varchar', length: 1000 })
   content: string;
 
-  @Column({ type: 'varchar' })
-  image_url: string;
+  @Column({ type: 'varchar', nullable: true })
+  image_url?: string;
 
   @Column({ type: 'varchar', length: 25 })
-  autor: string;
+  author: string;
 
   @OneToOne(() => Category)
   @JoinColumn()
