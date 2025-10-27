@@ -24,7 +24,11 @@ export class PostService {
   }
 
   findAll() {
-    return this.postRepository.find();
+    return this.postRepository.find({
+        relations: {
+            category: true,
+        },
+    });
   }
 
   findOne(id: number) {
