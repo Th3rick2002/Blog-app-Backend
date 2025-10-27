@@ -36,11 +36,18 @@
 | Actualizar una categoria     | PATCH       | /category/:id |
 | Eliminar una categoria       | DELETE      | /category/:id |
 
-Estructura de datos
+Estructura de datos para POST y PATCH
+```json
+{
+  "title": "category"
+}
+```
+
+Estructura de datos de respuesta GET
 ```json
 {
   "id_category": 1,
-  "title": "category",
+  "title": "prueba",
   "created_at": "2025-10-19T10:44:31.461Z",
   "updated_at": "2025-10-19T10:44:31.461Z",
   "deleted_at": null
@@ -57,16 +64,35 @@ Estructura de datos
 | Actualizar una publicación      | PATCH       | /post/:id |
 | Eliminar una publicación        | DELETE      | /post/:id |
 
-Estructura de datos
+Estructura de datos para POST y PATCH
 ```json
 {
-     "id_post": 3,
      "title": "Publicación",
      "content": "Contenido de la publicación",
      "image_url": "url/image.jpg",
      "author": "Author",
-     "createdAt": "2025-10-19T10:44:51.901Z",
-     "updatedAt": "2025-10-19T10:44:51.901Z"
+     "categoryId": 1
+}
+```
+
+Estructura para respuesta GET
+```json
+{
+  "id_post": 1,
+  "title": "publicación",
+  "content": "Descripción de la publicacion",
+  "image_url": "http://image.jpg",
+  "author": "Author name",
+  "reactions_count": 0,
+  "category": {
+    "id_category": 1,
+    "title": "prueba",
+    "created_at": "2025-10-19T10:44:31.461Z",
+    "updated_at": "2025-10-19T10:44:31.461Z",
+    "deleted_at": null
+  },
+  "createdAt": "2025-10-19T10:44:51.901Z",
+  "updatedAt": "2025-10-19T10:44:51.901Z"
 }
 ```
 

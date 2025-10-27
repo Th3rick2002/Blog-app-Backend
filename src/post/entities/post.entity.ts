@@ -3,7 +3,7 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
-  OneToOne,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -26,8 +26,11 @@ export class Post {
   @Column({ type: 'varchar', length: 25 })
   author: string;
 
-  @OneToOne(() => Category)
-  @JoinColumn()
+  @Column({ type: 'int', default: 0 })
+  reactions_count: number;
+
+  @ManyToOne(() => Category, (category) => category.posts)
+  @JoinColumn({ name: 'categoryId' })
   category: Category;
 
   @CreateDateColumn({ type: 'timestamp' })
