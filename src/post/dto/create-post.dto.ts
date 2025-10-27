@@ -1,5 +1,11 @@
-import { IsNotEmpty, IsOptional, IsString, MinLength } from 'class-validator';
-import { Category } from '../../category/entities/category.entity';
+import {
+  IsInt,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  MinLength,
+} from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class CreatePostDto {
   @IsNotEmpty()
@@ -20,5 +26,7 @@ export class CreatePostDto {
   author: string;
 
   @IsNotEmpty()
-  category: Category;
+  @IsInt()
+  @Type(() => Number)
+  categoryId: number;
 }

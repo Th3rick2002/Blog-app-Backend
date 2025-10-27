@@ -21,11 +21,11 @@ export class Category {
   posts: Post[];
 
   @CreateDateColumn({ type: 'timestamp' })
-  created_at: Date;
+  createdAt: Date;
 
   @UpdateDateColumn({ type: 'timestamp' })
-  updated_at: Date;
+  updatedAt: Date;
 
   @DeleteDateColumn({ type: 'timestamp' })
-  deleted_at: Date;
+  deletedAt: Date;
 }
